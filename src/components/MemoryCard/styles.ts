@@ -1,4 +1,5 @@
 import styled, { css } from 'styled-components/native';
+import Colors from '../../utils/colors';
 
 type Memory = {
 	selected: boolean
@@ -22,7 +23,7 @@ export const Avatar = styled.Image<AvatarType>`
 `
 
 export const Container = styled.View<Memory>`
-	background-color: #F1F1F1;
+	background-color: ${Colors.gray};
 	border-radius: 50px;
 
 	align-items: center;
@@ -32,10 +33,10 @@ export const Container = styled.View<Memory>`
 	height: 75px;
 
 	${({ selected }) => selected && css`
-		background-color: #F18B8B;
+		background-color: ${Colors.red};
 	`}
 
 	${({ visible }) => visible && css`
-		background-color: #E4CBCB;
+		background-color: #${Colors.pink};
 	`}
 `;
