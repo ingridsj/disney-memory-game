@@ -6,12 +6,13 @@ import * as S from './styles';
 type LabelProps = {
   text: string
   color: string
+  fontFamily: string
 }
 
-const Label = ({ text, color}: LabelProps) => {
+const Label = ({ text, color, fontFamily}: LabelProps) => {
   return (
 		<View>
-			<S.Text color={color}>{text}</S.Text>
+			<S.Text color={color} fontFamily={fontFamily}>{text}</S.Text>
 		</View>
   )
 }
