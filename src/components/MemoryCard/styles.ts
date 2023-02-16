@@ -7,20 +7,9 @@ type Memory = {
 	theme: Theme
 }
 
-type AvatarType = {
-	selected: boolean
-	visible: boolean
-}
-
-export const Avatar = styled.Image<AvatarType>`
+export const Avatar = styled.Image`
 	width: 70px;
 	height: 70px;
-
-	display: none;
-
-	${({ visible, selected }) => (visible || selected) && css`
-		display: flex;
-	`}
 `
 
 export const Container = styled.View<Memory>`
