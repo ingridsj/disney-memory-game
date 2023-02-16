@@ -1,8 +1,10 @@
 import styled from 'styled-components/native';
-import Colors from '../../utils/colors';
+import { theme } from '../../utils/theme';
+
+const Colors = theme.colors 
 
 type ContainerProps = {
-	backgroundColor: keyof typeof Colors 
+	backgroundColor: keyof typeof Colors
 }
 
 export const Container = styled.View<ContainerProps>`

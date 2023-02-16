@@ -1,9 +1,10 @@
 import styled, { css } from 'styled-components/native';
-import Colors from '../../utils/colors';
+import { Theme } from '../../utils/theme';
 
 type Memory = {
 	selected: boolean
 	visible: boolean
+	theme: Theme
 }
 
 type AvatarType = {
@@ -23,7 +24,7 @@ export const Avatar = styled.Image<AvatarType>`
 `
 
 export const Container = styled.View<Memory>`
-	background-color: ${Colors.gray};
+	background-color: ${({ theme }) => theme.colors.gray};
 	border-radius: 50px;
 
 	align-items: center;
@@ -33,10 +34,10 @@ export const Container = styled.View<Memory>`
 	height: 75px;
 
 	${({ selected }) => selected && css`
-		background-color: ${Colors.red};
+		background-color: ${({ theme }) => theme.colors.red};
 	`}
 
 	${({ visible }) => visible && css`
-		background-color: #${Colors.pink};
+		background-color: ${({ theme }) => theme.colors.pink};
 	`}
 `;

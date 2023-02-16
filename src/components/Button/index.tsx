@@ -1,11 +1,13 @@
 import React from 'react';
-import Colors from '../../utils/colors';
+import { theme } from '../../utils/theme';
 
 import * as S from './styles';
 
+const Colors = theme.colors 
+
 type ButtonProps = {
 	children: JSX.Element
-	backgroundColor: keyof typeof Colors 
+	backgroundColor: keyof typeof Colors
 }
 
 const Button = ({ children, backgroundColor }: ButtonProps) => {
