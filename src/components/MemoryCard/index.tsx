@@ -48,11 +48,11 @@ type MemoryCardProps = {
 const MemoryCard = ({ princessName, selected, visible }: MemoryCardProps) => {
 	return (
 		<S.Container selected={selected} visible={visible}>
-			<S.Avatar
-				source={PRINCESS_IMAGE[princessName]}
-				selected={selected}
-				visible={visible}
-			/>
+			{(selected || visible) && (
+				<S.Avatar
+					source={PRINCESS_IMAGE[princessName]}
+				/>
+			)}
 		</S.Container>
 	)
 }
