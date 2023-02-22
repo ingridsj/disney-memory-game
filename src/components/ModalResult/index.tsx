@@ -1,5 +1,4 @@
 import React from 'react';
-import { Text, View } from 'react-native';
 import { theme } from '../../utils/theme';
 import Button from '../Button';
 import Label from '../Label';

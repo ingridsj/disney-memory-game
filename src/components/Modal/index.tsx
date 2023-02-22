@@ -21,7 +21,7 @@ const Modal = ({ children, open, ...props }: ModalProps) => {
 		<Modalize
 			{...props}
 			ref={modalizeRef}
-			childrenStyle={{ height: 500}}
+			childrenStyle={{ height: 300 }}
       adjustToContentHeight
 		>
       {children}
