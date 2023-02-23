@@ -1,6 +1,6 @@
 import React from 'react';
 import { TouchableOpacityProps } from 'react-native';
-import { theme } from '../../utils/theme';
+import { theme } from 'utils/theme';
 
 import * as S from './styles';
 

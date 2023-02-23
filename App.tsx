@@ -4,12 +4,12 @@ import ConfettiCannon from 'react-native-confetti-cannon';
 import { ThemeProvider } from 'styled-components/native';
 import { useFonts, PrincessSofia_400Regular} from '@expo-google-fonts/princess-sofia';
 
-import { theme } from './src/utils/theme'
 
-import Button from './src/components/Button';
-import Label from './src/components/Label';
-import ModalMenu from './src/components/ModalMenu';
-import ModalResult from './src/components/ModalResult';
+import Label from 'components/Label';
+import Button from 'components/Button';
+import ModalMenu from 'components/ModalMenu';
+import ModalResult from 'components/ModalResult';
+import { theme } from 'utils/theme';
 
 export default function App() {
   const [ openMenu, setOpenMenu ] = useState(false)

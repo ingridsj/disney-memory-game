@@ -11,7 +11,7 @@ import {
 	sereia,
 	sininho,
 	tiana 
-} from '../../assets/export'
+} from 'assets/export'
 
 import * as S from './styles'
 

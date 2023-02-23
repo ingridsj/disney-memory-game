@@ -1,10 +1,10 @@
 import React from 'react';
 import { View } from 'react-native';
-import { theme } from '../../utils/theme';
-import Button from '../Button';
-import Label from '../Label';
-import Modal from '../Modal';
+import { theme } from 'utils/theme';
 
+import Button from 'components/Button';
+import Label from 'components/Label';
+import Modal from 'components/Modal';
 import * as S from './styles'
 
 type ModalMenuProps = {
