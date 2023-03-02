@@ -5,7 +5,7 @@ import { theme } from 'utils/theme';
 import * as S from './styles';
 
 type LabelProps = {
-  text: string
+  text: string | number
   color: string
   fontFamily?: string
   fontSize?: number

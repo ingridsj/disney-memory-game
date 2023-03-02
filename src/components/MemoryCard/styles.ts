@@ -12,7 +12,7 @@ export const Avatar = styled.Image`
 	height: 70px;
 `
 
-export const Container = styled.View<Memory>`
+export const Container = styled.TouchableOpacity<Memory>`
 	background-color: ${({ theme }) => theme.colors.gray};
 	border-radius: 50px;
 
@@ -21,6 +21,9 @@ export const Container = styled.View<Memory>`
 
 	width: 75px;
 	height: 75px;
+
+	margin-bottom: 20px;
+	margin-right: 6px;
 
 	${({ selected }) => selected && css`
 		background-color: ${({ theme }) => theme.colors.red};

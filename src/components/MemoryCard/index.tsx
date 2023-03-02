@@ -1,5 +1,5 @@
 import React from 'react';
-import { ImageSourcePropType } from 'react-native';
+import { ImageSourcePropType, TouchableOpacityProps } from 'react-native';
 
 import {
 	adormecida,
@@ -15,7 +15,7 @@ import {
 
 import * as S from './styles'
 
-enum Princess {
+export enum Princess {
 	tiana = 'tiana',
 	adormecida = 'adormecida',
 	bela = 'bela',
@@ -39,15 +39,15 @@ const PRINCESS_IMAGE: {[k: string]: ImageSourcePropType} = {
 	tiana
 }
 
-type MemoryCardProps = {
+type MemoryCardProps =  TouchableOpacityProps & {
 	princessName: keyof typeof Princess
 	selected: boolean
 	visible: boolean
 }
 
-const MemoryCard = ({ princessName, selected, visible }: MemoryCardProps) => {
+const MemoryCard = ({ princessName, selected, visible, ...rest }: MemoryCardProps) => {
 	return (
-		<S.Container selected={selected} visible={visible}>
+		<S.Container {...rest} selected={selected} visible={visible}>
 			{(selected || visible) && (
 				<S.Avatar
 					source={PRINCESS_IMAGE[princessName]}
