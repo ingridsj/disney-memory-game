@@ -11,10 +11,11 @@ import { useGame } from 'hooks/game';
 type ModalMenuProps = {
   open: boolean
   setOpen: (value: boolean) => void
+  handleClearInterval: () => void
 }
 
-const ModalMenu = ({ open, setOpen }: ModalMenuProps) => {
-  const { setSize } = useGame()
+const ModalMenu = ({ open, setOpen, handleClearInterval }: ModalMenuProps) => {
+  const { setSize, setTime } = useGame()
 
   return (
     <Modal open={open} onClosed={() => setOpen(false)}> 
@@ -30,9 +31,10 @@ const ModalMenu = ({ open, setOpen }: ModalMenuProps) => {
         onPress={() => {
           setSize(3)
           setOpen(false)
+          handleClearInterval()
         }}>
           <Label 
-            text='3' 
+            text='3'
             color={theme.colors.purple}
             fontSize={18}
           />
@@ -41,6 +43,7 @@ const ModalMenu = ({ open, setOpen }: ModalMenuProps) => {
         onPress={() => {
           setSize(6)
           setOpen(false)
+          handleClearInterval()
         }}>
           <Label 
             text='6' 
@@ -51,6 +54,7 @@ const ModalMenu = ({ open, setOpen }: ModalMenuProps) => {
         <Button backgroundColor='pink' onPress={() => {
           setSize(9)
           setOpen(false)
+          handleClearInterval()
         }}>
           <Label 
             text='9' 

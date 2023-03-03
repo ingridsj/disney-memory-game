@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useEffect } from 'react';
+import React, { useState, useMemo, useEffect, useCallback } from 'react';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import ConfettiCannon from 'react-native-confetti-cannon';
 import { useGame } from 'hooks/game';
@@ -60,6 +60,7 @@ const Home = () => {
 			const visibleCards = newImagesCards.filter((item) => item.visible)
 			if (visibleCards.length === (size! * 2)) {
 				setOpenResult(true)
+        clearInterval(timerInterval)
 			}
 		}
 	}
@@ -82,8 +83,14 @@ const Home = () => {
   function updateTimer() {
     let counter = 0
     const interval = setInterval(() => {
+      const date = new Date(counter * 1000)
+      const minutes = date.getUTCMinutes()
+      const seconds = date.getSeconds()
+
+      const timer = minutes.toString().padStart(2, '0') + ':' + seconds.toString().padStart(2, '0')
+      setTime(timer)
+
       counter++
-      setTime(counter)
     }, 1000)
 
     setTimerInterval(interval) 
@@ -106,6 +113,12 @@ const Home = () => {
     setReiniciar(false)
   }, [ princessImages, size, restart ])
 
+  const handleClearInterval = useCallback(() => {
+    clearInterval(timerInterval)
+    setTime('00:00')
+    setFirstClick(false)
+  }, [ timerInterval ])
+
   return (
     <GestureHandlerRootView style={{ 
       alignItems: 'center', 
@@ -115,14 +128,14 @@ const Home = () => {
       paddingBottom: 20,
       position: 'relative' 
       }}>
-      {openResult && <ConfettiCannon count={50} origin={{x: -10, y: 0}} />}
+      {/* {openResult && <ConfettiCannon count={50} origin={{x: -10, y: 0}} />} */}
       <S.Header>
         <Label text='Memória'  color={theme.colors.pink}  fontSize={48} />
         <S.HeaderButtons>
           <Button backgroundColor='pink' onPress={() => {
             setReiniciar(true)
             setMovements(0)
-            clearInterval(timerInterval!)
+            handleClearInterval()
           }}>
             <Label text='Reiniciar' color={theme.colors.purple} fontSize={18} />
           </Button>
@@ -137,11 +150,13 @@ const Home = () => {
       <ModalMenu
         open={openMenu}
         setOpen={setOpenMenu}
+        handleClearInterval={handleClearInterval}
       />
       <ModalResult
         open={openResult}
         setOpen={setOpenResult}
         setOpenMenu={setOpenMenu}
+        handleClearInterval={handleClearInterval}
       /> 
         <S.ContainerMemoryCard >
           {!!size && imagesCards.map((card, index) => (

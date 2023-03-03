@@ -12,9 +12,10 @@ type ModalResultProps = {
   open: boolean
   setOpen: (value: boolean) => void
   setOpenMenu: (value: boolean) => void
+  handleClearInterval: () => void
 }
 
-const ModalResult = ({ open, setOpen, setOpenMenu }: ModalResultProps) => {
+const ModalResult = ({ open, setOpen, setOpenMenu, handleClearInterval }: ModalResultProps) => {
   const { movements, setMovements, time } = useGame()
 
   return (
@@ -23,6 +24,7 @@ const ModalResult = ({ open, setOpen, setOpenMenu }: ModalResultProps) => {
       onClosed={() => {
         setOpen(false)
         setMovements(0)
+        handleClearInterval()
       }}
       > 
     <S.Container>
