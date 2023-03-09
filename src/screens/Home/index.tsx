@@ -1,6 +1,5 @@
 import React, { useState, useMemo, useEffect, useCallback } from 'react';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
-import ConfettiCannon from 'react-native-confetti-cannon';
 import { useGame } from 'hooks/game';
 
 import { theme } from 'utils/theme';
@@ -73,8 +72,14 @@ const Home = () => {
 	}
 
   function handleCardPress(index: number) {
-    setMovements(movements + 1)
     const newImagesCards = [...imagesCards]
+
+    if (newImagesCards[index].selected || newImagesCards[index].visible) {
+      return
+    }
+    
+    setMovements(movements + 1)
+
     const selectedCards = newImagesCards.filter((item) => item.selected)
 		if (selectedCards.length < 2) {
       if (!firstClick) {
@@ -186,10 +191,10 @@ const Home = () => {
           ))}
         </S.ContainerMemoryCard>
         <S.Footer>
-          <Label color={theme.colors.purple} text={'Tempo: ' + time}/>
-          <Label color={theme.colors.purple} text={'Movimentos: ' + movements}  />
-          <Label color={theme.colors.purple} text={'Vitórias: ' + victories} />
-          <Label color={theme.colors.purple} text={'Derrotas: ' + defeats} />
+          <Label color={theme.colors.purple} fontSize={18} text={'Tempo: ' + time}/>
+          <Label color={theme.colors.purple} fontSize={18} text={'Movimentos: ' + movements}  />
+          <Label color={theme.colors.purple} fontSize={18} text={'Vitórias: ' + victories} />
+          <Label color={theme.colors.purple} fontSize={18} text={'Derrotas: ' + defeats} />
       </S.Footer>
     </GestureHandlerRootView>
   )

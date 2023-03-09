@@ -1,4 +1,4 @@
-import React, { createContext, ReactNode, useContext, useState } from "react";
+import React, { createContext, ReactNode, useContext, useState, useMemo } from "react";
 
 type GameContextProviderProps = {
   children: ReactNode;
@@ -26,21 +26,23 @@ export function AuthProvider({ children }: GameContextProviderProps) {
   const [ victories, setVictories ] = useState<number>(0)
   const [ defeats, setDefeats ] = useState<number>(0)
 
+  const value = useMemo(() => {
+    return {
+      size,
+      setSize,
+      movements,
+      setMovements,
+      time,
+      setTime,
+      victories,
+      setVictories,
+      defeats,
+      setDefeats,
+    };
+  }, [size, setSize, movements, setMovements, time, setTime, victories, setVictories, defeats, setDefeats]);
+
   return (
-    <GameContext.Provider 
-    value={{ 
-        size, 
-        setSize, 
-        movements, 
-        setMovements, 
-        time, 
-        setTime,
-        victories,
-        setVictories,
-        defeats,
-        setDefeats,
-      }}
-    >
+    <GameContext.Provider value={value} >
       {children}
     </GameContext.Provider>
   );

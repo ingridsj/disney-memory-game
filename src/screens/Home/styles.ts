@@ -25,5 +25,6 @@ export const ContainerMemoryCard = styled.View`
 export const Footer = styled.View`
 	flex-direction: row;
 	align-items: center;
-	justify-content: space-evenly;
+	width: 85%;
+	justify-content: space-between;
 `
