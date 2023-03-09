@@ -20,10 +20,18 @@ type ImagesCards = {
 }
 
 const Home = () => {
-  const { size, movements, setMovements, time, setTime } = useGame()
+  const {
+    size, 
+    movements, 
+    setMovements, 
+    time, setTime, 
+    victories, 
+    setVictories,
+    defeats,
+    setDefeats,
+  } = useGame()
   const [ openMenu, setOpenMenu ] = useState(false)
   const [ openResult, setOpenResult ] = useState(false)
-  const [ restart, setReiniciar ] = useState(false)
   const [ imagesCards, setImagesCards ] = useState<ImagesCards[]>([])
   const [ firstClick, setFirstClick ] = useState(false)
   const [ timerInterval, setTimerInterval ] = useState<NodeJS.Timer>()
@@ -59,6 +67,7 @@ const Home = () => {
 
 			const visibleCards = newImagesCards.filter((item) => item.visible)
 			if (visibleCards.length === (size! * 2)) {
+        setVictories(victories + 1)
 				setOpenResult(true)
         clearInterval(timerInterval)
 			}
@@ -96,13 +105,9 @@ const Home = () => {
     setTimerInterval(interval) 
   }
 
-	useEffect(() => {
-		checkCards()
-	}, [ imagesCards ])
-
-  useEffect(() => {
-    const shuffledPrincessImages = shuffle(princessImages);
-    const selectedImages = shuffledPrincessImages.slice(0, size);
+  function shuffleImages() {
+    const shuffledPrincessImages = shuffle(princessImages)
+    const selectedImages = shuffledPrincessImages.slice(0, size)
     const duplicatedImages = [...selectedImages, ...selectedImages]
     const shuffleDuplicatedImages = shuffle(duplicatedImages)
     const imagesPrincess = shuffleDuplicatedImages.map(princess => {
@@ -110,14 +115,33 @@ const Home = () => {
     })
 
     setImagesCards(imagesPrincess)
-    setReiniciar(false)
-  }, [ princessImages, size, restart ])
+  }
+
+  function handleRestart() {
+    setDefeats(defeats + 1)
+    setMovements(0)
+    handleClearInterval()
+  }
+
+  function handleNew() {
+    setOpenMenu(true)
+    setMovements(0)
+  }
 
   const handleClearInterval = useCallback(() => {
     clearInterval(timerInterval)
     setTime('00:00')
     setFirstClick(false)
   }, [ timerInterval ])
+
+
+	useEffect(() => {
+		checkCards()
+	}, [ imagesCards ])
+
+  useEffect(() => {
+    shuffleImages()
+  }, [ princessImages, size, defeats ])
 
   return (
     <GestureHandlerRootView style={{ 
@@ -128,21 +152,13 @@ const Home = () => {
       paddingBottom: 20,
       position: 'relative' 
       }}>
-      {/* {openResult && <ConfettiCannon count={50} origin={{x: -10, y: 0}} />} */}
-      <S.Header>
+       <S.Header>
         <Label text='Memória'  color={theme.colors.pink}  fontSize={48} />
         <S.HeaderButtons>
-          <Button backgroundColor='pink' onPress={() => {
-            setReiniciar(true)
-            setMovements(0)
-            handleClearInterval()
-          }}>
+          <Button backgroundColor='pink' onPress={() => handleRestart()}>
             <Label text='Reiniciar' color={theme.colors.purple} fontSize={18} />
           </Button>
-          <Button backgroundColor='purple' onPress={() => {
-            setOpenMenu(true)
-            setMovements(0)
-          }}>
+          <Button backgroundColor='purple' onPress={() => handleNew()}>
             <Label text='Novo' color={theme.colors.pink} fontSize={18} />
           </Button>
         </S.HeaderButtons>
@@ -151,12 +167,14 @@ const Home = () => {
         open={openMenu}
         setOpen={setOpenMenu}
         handleClearInterval={handleClearInterval}
+        shuffleImages={shuffleImages}
       />
       <ModalResult
         open={openResult}
         setOpen={setOpenResult}
         setOpenMenu={setOpenMenu}
         handleClearInterval={handleClearInterval}
+        shuffleImages={shuffleImages}
       /> 
         <S.ContainerMemoryCard >
           {!!size && imagesCards.map((card, index) => (
@@ -172,6 +190,8 @@ const Home = () => {
         <S.Footer>
           <Label color={theme.colors.purple} text={'Tempo: ' + time}/>
           <Label color={theme.colors.purple} text={'Movimentos: ' + movements}  />
+          <Label color={theme.colors.purple} text={'Vitórias: ' + victories} />
+          <Label color={theme.colors.purple} text={'Derrotas: ' + defeats} />
       </S.Footer>
     </GestureHandlerRootView>
   )

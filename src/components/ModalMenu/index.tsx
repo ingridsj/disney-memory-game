@@ -12,56 +12,38 @@ type ModalMenuProps = {
   open: boolean
   setOpen: (value: boolean) => void
   handleClearInterval: () => void
+  shuffleImages: () => void
 }
 
-const ModalMenu = ({ open, setOpen, handleClearInterval }: ModalMenuProps) => {
-  const { setSize, setTime } = useGame()
+const ModalMenu = ({ open, setOpen, handleClearInterval, shuffleImages }: ModalMenuProps) => {
+  const { setSize } = useGame()
+
+  function handlePress(size: number) {
+    setSize(size)
+    shuffleImages()
+    handleClearInterval()
+    setOpen(false)
+  }
+
+  function renderButtons(sizes: number[]) {
+    return sizes.map(s => (
+        <Button key={s} backgroundColor='pink' onPress={() => handlePress(s)}>
+          <Label 
+            text={s.toString()} 
+            color={theme.colors.purple}
+            fontSize={18}
+          />
+        </Button>
+      ))
+  }
 
   return (
     <Modal open={open} onClosed={() => setOpen(false)}> 
       <S.Container>
         <View>
-          <Label 
-            text='Tamanhos:' 
-            color={theme.colors.purple}
-            fontSize={32}
-          />
+          <Label text='Tamanhos:' color={theme.colors.purple} fontSize={32} />
         </View>
-        <Button backgroundColor='pink' 
-        onPress={() => {
-          setSize(3)
-          setOpen(false)
-          handleClearInterval()
-        }}>
-          <Label 
-            text='3'
-            color={theme.colors.purple}
-            fontSize={18}
-          />
-        </Button>
-        <Button backgroundColor='pink' 
-        onPress={() => {
-          setSize(6)
-          setOpen(false)
-          handleClearInterval()
-        }}>
-          <Label 
-            text='6' 
-            color={theme.colors.purple}
-            fontSize={18}
-          />
-        </Button>
-        <Button backgroundColor='pink' onPress={() => {
-          setSize(9)
-          setOpen(false)
-          handleClearInterval()
-        }}>
-          <Label 
-            text='9' 
-            color={theme.colors.purple}
-            fontSize={18}
-          />
-        </Button>
+        {renderButtons([ 3, 6, 9 ])}
       </S.Container>
     </Modal>
   )

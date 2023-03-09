@@ -11,6 +11,10 @@ type GameContextType = {
   setMovements: (value: number) => void
   time: string
   setTime: any
+  victories: number
+  setVictories: (value: number) => void
+  defeats: number
+  setDefeats: (value: number) => void
 }
 
 const GameContext = createContext({} as GameContextType);
@@ -19,6 +23,8 @@ export function AuthProvider({ children }: GameContextProviderProps) {
   const [ size, setSize ] = useState<number | undefined>();
   const [ time, setTime ] = useState<string>('00:00')
   const [ movements, setMovements ] = useState<number>(0)
+  const [ victories, setVictories ] = useState<number>(0)
+  const [ defeats, setDefeats ] = useState<number>(0)
 
   return (
     <GameContext.Provider 
@@ -28,7 +34,11 @@ export function AuthProvider({ children }: GameContextProviderProps) {
         movements, 
         setMovements, 
         time, 
-        setTime 
+        setTime,
+        victories,
+        setVictories,
+        defeats,
+        setDefeats,
       }}
     >
       {children}
