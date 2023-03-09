@@ -50,9 +50,7 @@ const Home = () => {
 		if (selectedCards.length === 2) {
 			const [princessOne, princessTwo] = selectedCards
 
-			await new Promise(res => {
-				setTimeout(res, 1000)
-			});
+			await new Promise(res => setTimeout(res, 500))
 
 			if (princessOne.princess === princessTwo.princess) {
 				princessOne.selected = false

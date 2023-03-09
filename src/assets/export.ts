@@ -8,6 +8,8 @@ import sereia from './princess/sereia.png'
 import sininho from './princess/sininho.png'
 import tiana from './princess/tiana.png'
 
+import AnimationVictoryTrophy from './animations/107653-trophy.json'
+
 export {
   adormecida,
 	bela,
@@ -17,5 +19,6 @@ export {
 	mulan,
 	sereia,
 	sininho,
-	tiana
+	tiana,
+	AnimationVictoryTrophy,
 }
