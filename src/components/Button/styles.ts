@@ -1,10 +1,7 @@
 import styled from 'styled-components/native';
-import { theme } from '../../utils/theme';
-
-const Colors = theme.colors 
 
 type ContainerProps = {
-	backgroundColor: keyof typeof Colors
+	backgroundColor: string
 }
 
 export const Container = styled.TouchableOpacity<ContainerProps>`

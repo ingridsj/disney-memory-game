@@ -3,11 +3,11 @@ import Lottie from 'lottie-react-native';
 import Button from 'components/Button';
 import Label from 'components/Label';
 import Modal from 'components/Modal';
-import { theme } from 'utils/theme';
 import { useGame } from 'hooks/game';
 
 import { AnimationVictoryTrophy } from 'assets/export'
 import * as S from './styles'
+import { useTheme } from 'hooks/theme';
 
 
 type ModalResultProps = {
@@ -19,6 +19,7 @@ type ModalResultProps = {
 }
 
 const ModalResult = ({ open, setOpen, setOpenMenu, handleClearInterval, shuffleImages }: ModalResultProps) => {
+  const { theme } = useTheme()
   const { movements, setMovements, time } = useGame()
 
   function handleCloseModal() {
@@ -51,10 +52,10 @@ const ModalResult = ({ open, setOpen, setOpenMenu, handleClearInterval, shuffleI
           </S.VictoryLabels>
         </S.VictoryWrapper>
         <S.VictoryButtons>
-          <Button backgroundColor='purple' onPress={() => handleNew()}>
+          <Button backgroundColor={theme.colors.purple} onPress={() => handleNew()}>
             <Label text='Novo' color={theme.colors.pink} fontSize={18} />
           </Button>
-          <Button backgroundColor='pink' onPress={() => handleContinue()}>
+          <Button backgroundColor={theme.colors.pink} onPress={() => handleContinue()}>
             <Label text='Continuar' color={theme.colors.purple} fontSize={18} />
           </Button>
         </S.VictoryButtons>

@@ -19,8 +19,8 @@ type GameContextType = {
 
 const GameContext = createContext({} as GameContextType);
 
-export function AuthProvider({ children }: GameContextProviderProps) {
-  const [ size, setSize ] = useState<number | undefined>();
+export function GameProvider({ children }: GameContextProviderProps) {
+  const [ size, setSize ] = useState<number | undefined>()
   const [ time, setTime ] = useState<string>('00:00')
   const [ movements, setMovements ] = useState<number>(0)
   const [ victories, setVictories ] = useState<number>(0)

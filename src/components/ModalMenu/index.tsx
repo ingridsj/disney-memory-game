@@ -1,12 +1,12 @@
 import React from 'react';
 import { View } from 'react-native';
-import { theme } from 'utils/theme';
 
 import Button from 'components/Button';
 import Label from 'components/Label';
 import Modal from 'components/Modal';
 import * as S from './styles'
 import { useGame } from 'hooks/game';
+import { useTheme } from 'hooks/theme';
 
 type ModalMenuProps = {
   open: boolean
@@ -16,9 +16,15 @@ type ModalMenuProps = {
 }
 
 const ModalMenu = ({ open, setOpen, handleClearInterval, shuffleImages }: ModalMenuProps) => {
-  const { setSize } = useGame()
-
+  const { setSize, time, defeats, setDefeats } = useGame()
+  const { theme } = useTheme()
+  
   function handlePress(size: number) {
+    const emptyTime = '00:00'
+    if(time !== emptyTime) {
+      setDefeats(defeats + 1)
+    }
+
     setSize(size)
     shuffleImages()
     handleClearInterval()
@@ -27,7 +33,7 @@ const ModalMenu = ({ open, setOpen, handleClearInterval, shuffleImages }: ModalM
 
   function renderButtons(sizes: number[]) {
     return sizes.map(s => (
-        <Button key={s} backgroundColor='pink' onPress={() => handlePress(s)}>
+        <Button key={s} backgroundColor={theme.colors.pink} onPress={() => handlePress(s)}>
           <Label 
             text={s.toString()} 
             color={theme.colors.purple}

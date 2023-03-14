@@ -1,6 +1,6 @@
+import { useTheme } from 'hooks/theme';
 import React from 'react';
 import { View } from 'react-native';
-import { theme } from 'utils/theme';
 
 import * as S from './styles';
 
@@ -11,7 +11,7 @@ type LabelProps = {
   fontSize?: number
 }
 
-const Label = ({ text, color, fontFamily = theme.fonts.princessSofia, fontSize = 14 }: LabelProps) => {
+const Label = ({ text, color, fontFamily = 'PrincessSofia_400Regular', fontSize = 14 }: LabelProps) => {
   return (
 		<View>
 			<S.Text color={color} fontFamily={fontFamily} fontSize={fontSize}>

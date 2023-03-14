@@ -4,7 +4,16 @@ import { Theme } from '../../utils/theme';
 type Memory = {
 	selected: boolean
 	visible: boolean
+	backgroundColor: string
 	theme: Theme
+}
+
+const getBackgroundColor = (props: Memory) => {
+	if (props.selected || props.visible) {
+		return props.backgroundColor
+	}
+
+	return props.theme.colors.gray
 }
 
 export const Avatar = styled.Image`
@@ -13,7 +22,7 @@ export const Avatar = styled.Image`
 `
 
 export const Container = styled.TouchableOpacity<Memory>`
-	background-color: ${({ theme }) => theme.colors.gray};
+	background-color: ${props => getBackgroundColor(props)};
 	border-radius: 50px;
 
 	align-items: center;
@@ -24,12 +33,4 @@ export const Container = styled.TouchableOpacity<Memory>`
 
 	margin-bottom: 20px;
 	margin-right: 6px;
-
-	${({ selected }) => selected && css`
-		background-color: ${({ theme }) => theme.colors.red};
-	`}
-
-	${({ visible }) => visible && css`
-		background-color: ${({ theme }) => theme.colors.pink};
-	`}
 `;

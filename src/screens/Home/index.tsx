@@ -2,18 +2,19 @@ import React, { useState, useMemo, useEffect, useCallback } from 'react';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { useGame } from 'hooks/game';
 
-import { theme } from 'utils/theme';
-
 import Button from 'components/Button';
 import Label from 'components/Label';
 import ModalMenu from 'components/ModalMenu';
 import ModalResult from 'components/ModalResult';
-import MemoryCard, { Princess } from 'components/MemoryCard';
+import MemoryCard from 'components/MemoryCard';
 
 import * as S from './styles'
+import { useTheme } from 'hooks/theme';
+import { Text, TouchableOpacity } from 'react-native';
+import { Princess, Villains } from 'utils/helpers';
 
 type ImagesCards = {
-  princess: Princess
+  princess: Princess | Villains
   selected: boolean
   visible: boolean
 }
@@ -29,20 +30,25 @@ const Home = () => {
     defeats,
     setDefeats,
   } = useGame()
+  const { theme, toggleTheme, themeState } = useTheme()
   const [ openMenu, setOpenMenu ] = useState(false)
   const [ openResult, setOpenResult ] = useState(false)
   const [ imagesCards, setImagesCards ] = useState<ImagesCards[]>([])
   const [ firstClick, setFirstClick ] = useState(false)
   const [ timerInterval, setTimerInterval ] = useState<NodeJS.Timer>()
 
-  const princessImages = useMemo(() => Object.values(Princess), [])
+  const princessImages = useMemo(() => {
+    return themeState === 'light'
+      ? Object.values(Princess)
+      : Object.values(Villains)
+  }, [ themeState])
   
-  function shuffle(images: Princess[]) {
+  function shuffle(images: (Princess | Villains)[]) {
     const shuffleImages = images.sort(() => Math.random() - 0.5)
     return shuffleImages
   }
 
- async function checkCards() {
+  async function checkCards() {
 		const newImagesCards = [...imagesCards]
 		const selectedCards = newImagesCards.filter((item) => item.selected)
 
@@ -121,9 +127,11 @@ const Home = () => {
   }
 
   function handleRestart() {
-    setDefeats(defeats + 1)
-    setMovements(0)
-    handleClearInterval()
+    if (firstClick) {
+      setDefeats(defeats + 1)
+      setMovements(0)
+      handleClearInterval()
+    }
   }
 
   function handleNew() {
@@ -137,6 +145,10 @@ const Home = () => {
     setFirstClick(false)
   }, [ timerInterval ])
 
+  function handleChangeTheme() {
+    toggleTheme()
+    handleRestart()
+  }
 
 	useEffect(() => {
 		checkCards()
@@ -144,7 +156,7 @@ const Home = () => {
 
   useEffect(() => {
     shuffleImages()
-  }, [ princessImages, size, defeats ])
+  }, [ princessImages, size, defeats, themeState ])
 
   return (
     <GestureHandlerRootView style={{ 
@@ -153,15 +165,19 @@ const Home = () => {
       flex: 1, 
       paddingTop: 20,
       paddingBottom: 20,
-      position: 'relative' 
+      position: 'relative',
+      backgroundColor: theme.colors.background,
       }}>
        <S.Header>
         <Label text='Memória'  color={theme.colors.pink}  fontSize={48} />
         <S.HeaderButtons>
-          <Button backgroundColor='pink' onPress={() => handleRestart()}>
+          <TouchableOpacity onPress={() => handleChangeTheme()}>
+            <Text>maça</Text>
+          </TouchableOpacity>
+          <Button backgroundColor={theme.colors.pink} onPress={() => handleRestart()}>
             <Label text='Reiniciar' color={theme.colors.purple} fontSize={18} />
           </Button>
-          <Button backgroundColor='purple' onPress={() => handleNew()}>
+          <Button backgroundColor={theme.colors.purple} onPress={() => handleNew()}>
             <Label text='Novo' color={theme.colors.pink} fontSize={18} />
           </Button>
         </S.HeaderButtons>
