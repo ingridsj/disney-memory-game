@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useEffect, useCallback } from 'react';
+import React, { useState, useMemo, useEffect, useCallback, useContext } from 'react';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { useGame } from 'hooks/game';
 
@@ -9,17 +9,22 @@ import ModalResult from 'components/ModalResult';
 import MemoryCard from 'components/MemoryCard';
 
 import * as S from './styles'
-import { useTheme } from 'hooks/theme';
 import { Text, TouchableOpacity } from 'react-native';
 import { Princess, Villains } from 'utils/helpers';
+import { ThemeContext } from 'styled-components/native';
 
 type ImagesCards = {
-  princess: Princess | Villains
+  character: Princess | Villains
   selected: boolean
   visible: boolean
 }
 
-const Home = () => {
+type HomeProps = {
+  toggleTheme: () => void
+  themeTitle: string
+}
+
+const Home = ({ toggleTheme, themeTitle }: HomeProps) => {
   const {
     size, 
     movements, 
@@ -30,18 +35,18 @@ const Home = () => {
     defeats,
     setDefeats,
   } = useGame()
-  const { theme, toggleTheme, themeState } = useTheme()
+  const { colors } = useContext(ThemeContext)
   const [ openMenu, setOpenMenu ] = useState(false)
   const [ openResult, setOpenResult ] = useState(false)
   const [ imagesCards, setImagesCards ] = useState<ImagesCards[]>([])
   const [ firstClick, setFirstClick ] = useState(false)
   const [ timerInterval, setTimerInterval ] = useState<NodeJS.Timer>()
 
-  const princessImages = useMemo(() => {
-    return themeState === 'light'
+  const characterImages = useMemo(() => {
+    return themeTitle === 'light'
       ? Object.values(Princess)
       : Object.values(Villains)
-  }, [ themeState])
+  }, [ themeTitle ])
   
   function shuffle(images: (Princess | Villains)[]) {
     const shuffleImages = images.sort(() => Math.random() - 0.5)
@@ -53,18 +58,18 @@ const Home = () => {
 		const selectedCards = newImagesCards.filter((item) => item.selected)
 
 		if (selectedCards.length === 2) {
-			const [princessOne, princessTwo] = selectedCards
+			const [characterOne, characterTwo] = selectedCards
 
 			await new Promise(res => setTimeout(res, 500))
 
-			if (princessOne.princess === princessTwo.princess) {
-				princessOne.selected = false
-				princessTwo.selected = false
-				princessOne.visible = true
-				princessTwo.visible = true
+			if (characterOne.character === characterTwo.character) {
+				characterOne.selected = false
+				characterTwo.selected = false
+				characterOne.visible = true
+				characterTwo.visible = true
 			} else {
-				princessOne.selected = false
-				princessTwo.selected = false
+				characterOne.selected = false
+				characterTwo.selected = false
 			}
 			setImagesCards(newImagesCards)
 
@@ -115,12 +120,12 @@ const Home = () => {
   }
 
   function shuffleImages() {
-    const shuffledPrincessImages = shuffle(princessImages)
+    const shuffledPrincessImages = shuffle(characterImages)
     const selectedImages = shuffledPrincessImages.slice(0, size)
     const duplicatedImages = [...selectedImages, ...selectedImages]
     const shuffleDuplicatedImages = shuffle(duplicatedImages)
-    const imagesPrincess = shuffleDuplicatedImages.map(princess => {
-      return { princess, selected: false, visible: false }
+    const imagesPrincess = shuffleDuplicatedImages.map(character => {
+      return { character, selected: false, visible: false }
     })
 
     setImagesCards(imagesPrincess)
@@ -156,7 +161,7 @@ const Home = () => {
 
   useEffect(() => {
     shuffleImages()
-  }, [ princessImages, size, defeats, themeState ])
+  }, [ characterImages, size, defeats, themeTitle ])
 
   return (
     <GestureHandlerRootView style={{ 
@@ -166,19 +171,19 @@ const Home = () => {
       paddingTop: 20,
       paddingBottom: 20,
       position: 'relative',
-      backgroundColor: theme.colors.background,
+      backgroundColor: colors.background,
       }}>
        <S.Header>
-        <Label text='Memória'  color={theme.colors.pink}  fontSize={48} />
+        <Label text='Memória'  color={colors.primary}  fontSize={48} />
         <S.HeaderButtons>
           <TouchableOpacity onPress={() => handleChangeTheme()}>
             <Text>maça</Text>
           </TouchableOpacity>
-          <Button backgroundColor={theme.colors.pink} onPress={() => handleRestart()}>
-            <Label text='Reiniciar' color={theme.colors.purple} fontSize={18} />
+          <Button backgroundColor={colors.primary} onPress={() => handleRestart()}>
+            <Label text='Reiniciar' color={colors.secondary} fontSize={18} />
           </Button>
-          <Button backgroundColor={theme.colors.purple} onPress={() => handleNew()}>
-            <Label text='Novo' color={theme.colors.pink} fontSize={18} />
+          <Button backgroundColor={colors.secondary} onPress={() => handleNew()}>
+            <Label text='Novo' color={colors.primary} fontSize={18} />
           </Button>
         </S.HeaderButtons>
       </S.Header>
@@ -199,7 +204,7 @@ const Home = () => {
           {!!size && imagesCards.map((card, index) => (
             <MemoryCard 
               key={index}
-              princessName={card.princess} 
+              character={card.character} 
               selected={card.selected} 
               visible={card.visible}
               onPress={() => handleCardPress(index)}
@@ -207,10 +212,10 @@ const Home = () => {
           ))}
         </S.ContainerMemoryCard>
         <S.Footer>
-          <Label color={theme.colors.purple} fontSize={18} text={'Tempo: ' + time}/>
-          <Label color={theme.colors.purple} fontSize={18} text={'Movimentos: ' + movements}  />
-          <Label color={theme.colors.purple} fontSize={18} text={'Vitórias: ' + victories} />
-          <Label color={theme.colors.purple} fontSize={18} text={'Derrotas: ' + defeats} />
+          <Label color={colors.secondary} fontSize={18} text={'Tempo: ' + time}/>
+          <Label color={colors.secondary} fontSize={18} text={'Movimentos: ' + movements}  />
+          <Label color={colors.secondary} fontSize={18} text={'Vitórias: ' + victories} />
+          <Label color={colors.secondary} fontSize={18} text={'Derrotas: ' + defeats} />
       </S.Footer>
     </GestureHandlerRootView>
   )

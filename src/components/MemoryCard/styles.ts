@@ -1,4 +1,4 @@
-import styled, { css } from 'styled-components/native';
+import styled from 'styled-components/native';
 import { Theme } from '../../utils/theme';
 
 type Memory = {
@@ -13,7 +13,7 @@ const getBackgroundColor = (props: Memory) => {
 		return props.backgroundColor
 	}
 
-	return props.theme.colors.gray
+	return props.theme.colors.quaternary
 }
 
 export const Avatar = styled.Image`

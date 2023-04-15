@@ -1,10 +1,10 @@
 export type Theme = {
 	colors: {
 		background: string
-		pink: string
-		purple: string
-		red: string
-		gray: string
+		primary: string
+		secondary: string
+		tertiary: string
+		quaternary: string
 	},
 	fonts: {
 		princessSofia: string
@@ -13,10 +13,10 @@ export type Theme = {
 export const themeLight: Theme = {
   colors: {
 		background: '#FFFFFF',
-		pink: '#E4CBCB',
-		purple: '#75728D',
-		red: '#F18B8B',
-		gray: '#F1F1F1',
+		primary: '#E4CBCB',
+		secondary: '#75728D',
+		tertiary: '#F18B8B',
+		quaternary: '#F1F1F1',
   },
 	fonts: {
 		princessSofia: 'PrincessSofia_400Regular'
@@ -26,10 +26,10 @@ export const themeLight: Theme = {
 export const themeDark: Theme = {
   colors: {
 		background: '#333333',
-		pink: '#EEF2F1',
-		purple: '#C40909',
-		red: '#F18B8B',
-		gray: '#F1F1F1',
+		primary: '#EEF2F1',
+		secondary: '#C40909',
+		tertiary: '#F18B8B',
+		quaternary: '#F1F1F1',
 	},
 	fonts: {
 		princessSofia: 'PrincessSofia_400Regular'

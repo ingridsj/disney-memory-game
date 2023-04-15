@@ -1,4 +1,3 @@
-import { useTheme } from 'hooks/theme';
 import React from 'react';
 import { View } from 'react-native';
 

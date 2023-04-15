@@ -1,12 +1,13 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { View } from 'react-native';
 
 import Button from 'components/Button';
 import Label from 'components/Label';
 import Modal from 'components/Modal';
-import * as S from './styles'
 import { useGame } from 'hooks/game';
-import { useTheme } from 'hooks/theme';
+import { ThemeContext } from 'styled-components';
+
+import * as S from './styles'
 
 type ModalMenuProps = {
   open: boolean
@@ -17,7 +18,7 @@ type ModalMenuProps = {
 
 const ModalMenu = ({ open, setOpen, handleClearInterval, shuffleImages }: ModalMenuProps) => {
   const { setSize, time, defeats, setDefeats } = useGame()
-  const { theme } = useTheme()
+  const { colors } = useContext(ThemeContext)
   
   function handlePress(size: number) {
     const emptyTime = '00:00'
@@ -33,10 +34,10 @@ const ModalMenu = ({ open, setOpen, handleClearInterval, shuffleImages }: ModalM
 
   function renderButtons(sizes: number[]) {
     return sizes.map(s => (
-        <Button key={s} backgroundColor={theme.colors.pink} onPress={() => handlePress(s)}>
+        <Button key={s} backgroundColor={colors.primary} onPress={() => handlePress(s)}>
           <Label 
             text={s.toString()} 
-            color={theme.colors.purple}
+            color={colors.secondary}
             fontSize={18}
           />
         </Button>
@@ -47,7 +48,7 @@ const ModalMenu = ({ open, setOpen, handleClearInterval, shuffleImages }: ModalM
     <Modal open={open} onClosed={() => setOpen(false)}> 
       <S.Container>
         <View>
-          <Label text='Tamanhos:' color={theme.colors.purple} fontSize={32} />
+          <Label text='Tamanhos:' color={colors.secondary} fontSize={32} />
         </View>
         {renderButtons([ 3, 6, 9 ])}
       </S.Container>
