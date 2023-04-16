@@ -1,4 +1,5 @@
 export type Theme = {
+	title: 'light' | 'dark'
 	colors: {
 		background: string
 		primary: string
@@ -11,6 +12,7 @@ export type Theme = {
 	}
 }
 export const themeLight: Theme = {
+	title: 'light',
   colors: {
 		background: '#FFFFFF',
 		primary: '#E4CBCB',
@@ -24,6 +26,7 @@ export const themeLight: Theme = {
 };
 
 export const themeDark: Theme = {
+	title: 'dark',
   colors: {
 		background: '#333333',
 		primary: '#EEF2F1',

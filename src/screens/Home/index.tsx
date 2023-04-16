@@ -21,10 +21,9 @@ type ImagesCards = {
 
 type HomeProps = {
   toggleTheme: () => void
-  themeTitle: string
 }
 
-const Home = ({ toggleTheme, themeTitle }: HomeProps) => {
+const Home = ({ toggleTheme }: HomeProps) => {
   const {
     size, 
     movements, 
@@ -35,7 +34,7 @@ const Home = ({ toggleTheme, themeTitle }: HomeProps) => {
     defeats,
     setDefeats,
   } = useGame()
-  const { colors } = useContext(ThemeContext)
+  const { colors, title } = useContext(ThemeContext)
   const [ openMenu, setOpenMenu ] = useState(false)
   const [ openResult, setOpenResult ] = useState(false)
   const [ imagesCards, setImagesCards ] = useState<ImagesCards[]>([])
@@ -43,10 +42,10 @@ const Home = ({ toggleTheme, themeTitle }: HomeProps) => {
   const [ timerInterval, setTimerInterval ] = useState<NodeJS.Timer>()
 
   const characterImages = useMemo(() => {
-    return themeTitle === 'light'
+    return title === 'light'
       ? Object.values(Princess)
       : Object.values(Villains)
-  }, [ themeTitle ])
+  }, [ title ])
   
   function shuffle(images: (Princess | Villains)[]) {
     const shuffleImages = images.sort(() => Math.random() - 0.5)
@@ -161,7 +160,7 @@ const Home = ({ toggleTheme, themeTitle }: HomeProps) => {
 
   useEffect(() => {
     shuffleImages()
-  }, [ characterImages, size, defeats, themeTitle ])
+  }, [ characterImages, size, defeats, title ])
 
   return (
     <GestureHandlerRootView style={{ 
