@@ -1,10 +1,10 @@
-import React, { useContext } from 'react';
-import Lottie from 'lottie-react-native';
-import Button from 'components/Button';
-import Label from 'components/Label';
-import Modal from 'components/Modal';
-import { useGame } from 'hooks/game';
-import { ThemeContext } from 'styled-components/native';
+import React, { useContext } from 'react'
+import Lottie from 'lottie-react-native'
+import Button from 'components/Button'
+import Label from 'components/Label'
+import Modal from 'components/Modal'
+import { useGame } from 'hooks/game'
+import { ThemeContext } from 'styled-components/native'
 
 import { AnimationVictoryTrophy } from 'assets/export'
 
@@ -22,27 +22,27 @@ const ModalResult = ({ open, setOpen, setOpenMenu, handleClearInterval, shuffleI
   const { colors } = useContext(ThemeContext)
   const { movements, setMovements, time } = useGame()
 
-  function handleCloseModal() {
+  function handleCloseModal () {
     setOpen(false)
     setMovements(0)
     handleClearInterval()
     shuffleImages()
   }
 
-  function handleNew() {
+  function handleNew () {
     setOpen(false)
     setOpenMenu(true)
   }
 
-  function handleContinue() {
+  function handleContinue () {
     setOpen(false)
     shuffleImages()
   }
 
   return (
-    <Modal open={open} onClosed={() => handleCloseModal()} > 
+    <Modal open={open} onClosed={() => { handleCloseModal() }} >
       <S.Container>
-        <Label color={colors.secondary} fontSize={40} text='Vitória!' />   
+        <Label color={colors.secondary} fontSize={40} text='Vitória!' />
         <S.VictoryWrapper>
           <S.VictoryAnimation>
             <Lottie source={AnimationVictoryTrophy} autoPlay loop />
@@ -53,10 +53,10 @@ const ModalResult = ({ open, setOpen, setOpenMenu, handleClearInterval, shuffleI
           </S.VictoryLabels>
         </S.VictoryWrapper>
         <S.VictoryButtons>
-          <Button backgroundColor={colors.secondary} onPress={() => handleNew()}>
+          <Button backgroundColor={colors.secondary} onPress={() => { handleNew() }}>
             <Label text='Novo' color={colors.primary} fontSize={18} />
           </Button>
-          <Button backgroundColor={colors.primary} onPress={() => handleContinue()}>
+          <Button backgroundColor={colors.primary} onPress={() => { handleContinue() }}>
             <Label text='Continuar' color={colors.secondary} fontSize={18} />
           </Button>
         </S.VictoryButtons>
@@ -65,4 +65,4 @@ const ModalResult = ({ open, setOpen, setOpenMenu, handleClearInterval, shuffleI
   )
 }
 
-export default ModalResult;
+export default ModalResult

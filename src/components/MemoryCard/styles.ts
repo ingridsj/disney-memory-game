@@ -1,19 +1,19 @@
-import styled from 'styled-components/native';
-import { Theme } from '../../utils/theme';
+import styled from 'styled-components/native'
+import { type Theme } from '../../utils/theme'
 
 type Memory = {
-	selected: boolean
-	visible: boolean
-	backgroundColor: string
-	theme: Theme
+  selected: boolean
+  visible: boolean
+  backgroundColor: string
+  theme: Theme
 }
 
 const getBackgroundColor = (props: Memory) => {
-	if (props.selected || props.visible) {
-		return props.backgroundColor
-	}
+  if (props.selected || props.visible) {
+    return props.backgroundColor
+  }
 
-	return props.theme.colors.quaternary
+  return props.theme.colors.quaternary
 }
 
 export const Avatar = styled.Image`
@@ -33,4 +33,4 @@ export const Container = styled.TouchableOpacity<Memory>`
 
 	margin-bottom: 20px;
 	margin-right: 6px;
-`;
+`

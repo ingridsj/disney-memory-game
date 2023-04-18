@@ -1,7 +1,7 @@
-import React from 'react';
-import { View } from 'react-native';
+import React from 'react'
+import { View } from 'react-native'
 
-import * as S from './styles';
+import * as S from './styles'
 
 type LabelProps = {
   text: string | number
@@ -20,4 +20,4 @@ const Label = ({ text, color, fontFamily = 'PrincessSofia_400Regular', fontSize 
   )
 }
 
-export default Label;
+export default Label

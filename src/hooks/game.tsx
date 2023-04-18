@@ -1,8 +1,8 @@
-import React, { createContext, ReactNode, useContext, useState, useMemo } from "react";
+import React, { createContext, type ReactNode, useContext, useState, useMemo } from 'react'
 
 type GameContextProviderProps = {
-  children: ReactNode;
-};
+  children: ReactNode
+}
 
 type GameContextType = {
   size: number | undefined
@@ -17,9 +17,9 @@ type GameContextType = {
   setDefeats: (value: number) => void
 }
 
-const GameContext = createContext({} as GameContextType);
+const GameContext = createContext({} as GameContextType)
 
-export function GameProvider({ children }: GameContextProviderProps) {
+export function GameProvider ({ children }: GameContextProviderProps) {
   const [ size, setSize ] = useState<number>(3)
   const [ time, setTime ] = useState<string>('00:00')
   const [ movements, setMovements ] = useState<number>(0)
@@ -37,19 +37,19 @@ export function GameProvider({ children }: GameContextProviderProps) {
       victories,
       setVictories,
       defeats,
-      setDefeats,
-    };
-  }, [size, setSize, movements, setMovements, time, setTime, victories, setVictories, defeats, setDefeats]);
+      setDefeats
+    }
+  }, [ size, setSize, movements, setMovements, time, setTime, victories, setVictories, defeats, setDefeats ])
 
   return (
     <GameContext.Provider value={value} >
       {children}
     </GameContext.Provider>
-  );
+  )
 }
 
-export function useGame() {
-  const context = useContext(GameContext);
+export function useGame () {
+  const context = useContext(GameContext)
 
-  return context;
+  return context
 }

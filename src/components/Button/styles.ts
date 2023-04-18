@@ -1,7 +1,7 @@
-import styled from 'styled-components/native';
+import styled from 'styled-components/native'
 
 type ContainerProps = {
-	backgroundColor: string
+  backgroundColor: string
 }
 
 export const Container = styled.TouchableOpacity<ContainerProps>`
@@ -11,4 +11,4 @@ export const Container = styled.TouchableOpacity<ContainerProps>`
 	border-radius: 30px;
 	justify-content: center;
 	align-items: center;
-`;
+`

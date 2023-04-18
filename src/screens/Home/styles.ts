@@ -1,11 +1,11 @@
-import styled from 'styled-components/native';
+import styled from 'styled-components/native'
 
 export const Header = styled.View`
 	margin-top: 20px;
 	justify-content: center;
 	align-items: center;
   padding-top: 30px;
-`;
+`
 
 export const HeaderButtons = styled.View`
 	flex-direction: row;

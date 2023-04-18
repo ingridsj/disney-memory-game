@@ -1,26 +1,26 @@
 import React, { useState } from 'react'
-import { ThemeProvider } from 'styled-components/native';
-import { useFonts, PrincessSofia_400Regular} from '@expo-google-fonts/princess-sofia';
-import { GameProvider } from 'hooks/game';
+import { ThemeProvider } from 'styled-components/native'
+import { useFonts, PrincessSofia_400Regular } from '@expo-google-fonts/princess-sofia'
+import { GameProvider } from 'hooks/game'
 
-import Home from 'screens/Home';
+import Home from 'screens/Home'
 
-import { themeLight, themeDark, Theme } from 'utils/theme';
+import { themeLight, themeDark, type Theme } from 'utils/theme'
 
-export default function App() {
+export default function App () {
   const [ theme, setTheme ] = useState<Theme>(themeLight)
 
-  function toggleTheme() {
+  function toggleTheme () {
     setTheme(currentTheme => currentTheme.title === 'light' ? themeDark : themeLight)
   }
 
-  let [fontsLoaded] = useFonts({
-		PrincessSofia_400Regular,
-	});
+  const [ fontsLoaded ] = useFonts({
+    PrincessSofia_400Regular
+  })
 
-	if (!fontsLoaded) {
-		return null;
-	}
+  if (!fontsLoaded) {
+    return null
+  }
 
   return (
     <GameProvider>
@@ -28,6 +28,5 @@ export default function App() {
         <Home toggleTheme={toggleTheme}/>
       </ThemeProvider>
     </GameProvider>
-  );
+  )
 }
-
