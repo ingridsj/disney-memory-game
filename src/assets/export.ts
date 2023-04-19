@@ -18,6 +18,8 @@ import stepmother from './villains/stepmother.png'
 import yzma from './villains/yzma.png'
 
 import AnimationVictoryTrophy from './animations/107653-trophy.json'
+import AppleGood from './animations/55495-apple.json'
+import AppleBad from './animations/72520-apple-dizzy-emoji.json'
 
 export {
   adormecida,
@@ -38,5 +40,7 @@ export {
   queenHearts,
   stepmother,
   yzma,
-  AnimationVictoryTrophy
+  AnimationVictoryTrophy,
+  AppleGood,
+  AppleBad
 }

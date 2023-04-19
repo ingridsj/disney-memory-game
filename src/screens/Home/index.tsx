@@ -9,9 +9,10 @@ import ModalResult from 'components/ModalResult'
 import MemoryCard from 'components/MemoryCard'
 
 import * as S from './styles'
-import { Text, TouchableOpacity } from 'react-native'
 import { Princess, Villains } from 'utils/helpers'
 import { ThemeContext } from 'styled-components/native'
+
+import ToggleButton from 'components/ToggleButton'
 
 type ImagesCards = {
   character: Princess | Villains
@@ -28,7 +29,8 @@ const Home = ({ toggleTheme }: HomeProps) => {
     size,
     movements,
     setMovements,
-    time, setTime,
+    time,
+    setTime,
     victories,
     setVictories,
     defeats,
@@ -40,6 +42,7 @@ const Home = ({ toggleTheme }: HomeProps) => {
   const [ imagesCards, setImagesCards ] = useState<ImagesCards[]>([])
   const [ firstClick, setFirstClick ] = useState(false)
   const [ timerInterval, setTimerInterval ] = useState<NodeJS.Timer>()
+  const [ toggleValue, setToggleValue ] = useState(false)
 
   const characterImages = useMemo(() => {
     return title === 'light'
@@ -150,6 +153,7 @@ const Home = ({ toggleTheme }: HomeProps) => {
   }, [ timerInterval ])
 
   function handleChangeTheme () {
+    setToggleValue(!toggleValue)
     toggleTheme()
     handleRestart()
   }
@@ -174,10 +178,8 @@ const Home = ({ toggleTheme }: HomeProps) => {
     }}>
        <S.Header>
         <Label text='Memória' color={colors.primary} fontSize={48} />
+        <ToggleButton handleChangeTheme={handleChangeTheme} toggleValue={toggleValue}/>
         <S.HeaderButtons>
-          <TouchableOpacity onPress={() => { handleChangeTheme() }}>
-            <Text>maça</Text>
-          </TouchableOpacity>
           <Button backgroundColor={colors.primary} onPress={() => { handleRestart() }}>
             <Label text='Reiniciar' color={colors.secondary} fontSize={18} />
           </Button>
@@ -210,11 +212,11 @@ const Home = ({ toggleTheme }: HomeProps) => {
             />
           ))}
         </S.ContainerMemoryCard>
-        <S.Footer>
-          <Label color={colors.secondary} fontSize={18} text={'Tempo: ' + time}/>
-          <Label color={colors.secondary} fontSize={18} text={'Movimentos: ' + movements} />
-          <Label color={colors.secondary} fontSize={18} text={'Vitórias: ' + victories} />
-          <Label color={colors.secondary} fontSize={18} text={'Derrotas: ' + defeats} />
+      <S.Footer>
+        <Label color={colors.secondary} fontSize={18} text={'Tempo: ' + time}/>
+        <Label color={colors.secondary} fontSize={18} text={'Movimentos: ' + movements} />
+        <Label color={colors.secondary} fontSize={18} text={'Vitórias: ' + victories} />
+        <Label color={colors.secondary} fontSize={18} text={'Derrotas: ' + defeats} />
       </S.Footer>
     </GestureHandlerRootView>
   )
