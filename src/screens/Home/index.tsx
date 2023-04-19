@@ -1,5 +1,4 @@
 import React, { useState, useMemo, useEffect, useCallback, useContext } from 'react'
-import { GestureHandlerRootView } from 'react-native-gesture-handler'
 import { useGame } from 'hooks/game'
 
 import Button from 'components/Button'
@@ -55,32 +54,32 @@ const Home = ({ toggleTheme }: HomeProps) => {
     return shuffleImages
   }
 
-  async function checkCards () {
+  function checkCards () {
     const newImagesCards = [ ...imagesCards ]
     const selectedCards = newImagesCards.filter((item) => item.selected)
 
     if (selectedCards.length === 2) {
       const [ characterOne, characterTwo ] = selectedCards
 
-      await new Promise(res => setTimeout(res, 500))
+      setTimeout(() => {
+        if (characterOne.character === characterTwo.character) {
+          characterOne.selected = false
+          characterTwo.selected = false
+          characterOne.visible = true
+          characterTwo.visible = true
+        } else {
+          characterOne.selected = false
+          characterTwo.selected = false
+        }
+        setImagesCards(newImagesCards)
 
-      if (characterOne.character === characterTwo.character) {
-        characterOne.selected = false
-        characterTwo.selected = false
-        characterOne.visible = true
-        characterTwo.visible = true
-      } else {
-        characterOne.selected = false
-        characterTwo.selected = false
-      }
-      setImagesCards(newImagesCards)
-
-      const visibleCards = newImagesCards.filter((item) => item.visible)
-      if (visibleCards.length === (size! * 2)) {
-        setVictories(victories + 1)
-        setOpenResult(true)
-        clearInterval(timerInterval)
-      }
+        const visibleCards = newImagesCards.filter((item) => item.visible)
+        if (visibleCards.length === (size! * 2)) {
+          setVictories(victories + 1)
+          setOpenResult(true)
+          clearInterval(timerInterval)
+        }
+      }, 500)
     }
   }
 
@@ -167,15 +166,7 @@ const Home = ({ toggleTheme }: HomeProps) => {
   }, [ characterImages, size, defeats, title ])
 
   return (
-    <GestureHandlerRootView style={{
-      alignItems: 'center',
-      justifyContent: 'space-between',
-      flex: 1,
-      paddingTop: 20,
-      paddingBottom: 20,
-      position: 'relative',
-      backgroundColor: colors.background
-    }}>
+    <S.Container>
        <S.Header>
         <Label text='Memória' color={colors.primary} fontSize={48} />
         <ToggleButton handleChangeTheme={handleChangeTheme} toggleValue={toggleValue}/>
@@ -201,6 +192,19 @@ const Home = ({ toggleTheme }: HomeProps) => {
         handleClearInterval={handleClearInterval}
         shuffleImages={shuffleImages}
       />
+      <S.Board
+        size={size}
+        centerContent
+        contentContainerStyle={{
+          flexGrow: 1,
+          flexDirection: 'row',
+          flexWrap: 'wrap',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          width: '100%',
+          alignContent: 'center'
+        }}
+      >
         <S.ContainerMemoryCard >
           {!!size && imagesCards.map((card, index) => (
             <MemoryCard
@@ -212,13 +216,14 @@ const Home = ({ toggleTheme }: HomeProps) => {
             />
           ))}
         </S.ContainerMemoryCard>
+      </S.Board>
       <S.Footer>
         <Label color={colors.secondary} fontSize={18} text={'Tempo: ' + time}/>
         <Label color={colors.secondary} fontSize={18} text={'Movimentos: ' + movements} />
         <Label color={colors.secondary} fontSize={18} text={'Vitórias: ' + victories} />
         <Label color={colors.secondary} fontSize={18} text={'Derrotas: ' + defeats} />
       </S.Footer>
-    </GestureHandlerRootView>
+    </S.Container>
   )
 }
 

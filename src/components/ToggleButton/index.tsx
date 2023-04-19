@@ -37,7 +37,7 @@ const ToggleButton = ({ toggleValue, handleChangeTheme }: ToggleButtonArgs) => {
         />
       }
       trackBar={{
-        activeBackgroundColor: colors.quartenary,
+        activeBackgroundColor: colors.primary,
         inActiveBackgroundColor: colors.secondary,
         width: 100,
         height: 30
