@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "my-app",
-    "slug": "my-app",
+    "name": "Memória Encantada",
+    "slug": "memoria-encantada",
     "version": "1.0.0",
     "orientation": "portrait",
     "userInterfaceStyle": "light",
@@ -16,14 +16,17 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.memoria-encantada-ts",
+      "buildNumber": "1.1.0"
     },
     "android": {
+      "package": "com.ingrid.memoriaencantada",
+      "versionCode": 1,
       "adaptiveIcon": {
         "backgroundColor": "#FFFFFF"
       }
     },
-    "web": {
-    }
+    "web": {}
   }
 }

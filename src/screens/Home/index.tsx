@@ -168,7 +168,7 @@ const Home = ({ toggleTheme }: HomeProps) => {
   return (
     <S.Container>
        <S.Header>
-        <Label text='Memória' color={colors.primary} fontSize={48} />
+        <Label text='Memória Encantada' color={colors.primary} fontSize={48} />
         <ToggleButton handleChangeTheme={handleChangeTheme} toggleValue={toggleValue}/>
         <S.HeaderButtons>
           <Button backgroundColor={colors.primary} onPress={() => { handleRestart() }}>
