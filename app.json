@@ -4,6 +4,7 @@
     "slug": "memoria-encantada",
     "version": "1.0.0",
     "orientation": "portrait",
+    "icon": "./src/assets/icon/icon.png",
     "userInterfaceStyle": "light",
     "splash": {
       "resizeMode": "contain",
@@ -24,7 +25,8 @@
       "package": "com.ingrid.memoriaencantada",
       "versionCode": 1,
       "adaptiveIcon": {
-        "backgroundColor": "#FFFFFF"
+        "backgroundColor": "#FFFFFF",
+        "foregroundImage": "./src/assets/icon/adaptive-icon.png"
       }
     },
     "web": {}
