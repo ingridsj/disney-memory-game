@@ -74,7 +74,7 @@ const Home = ({ toggleTheme }: HomeProps) => {
         setImagesCards(newImagesCards)
 
         const visibleCards = newImagesCards.filter((item) => item.visible)
-        if (visibleCards.length === (size! * 2)) {
+        if (visibleCards.length === (size * 2)) {
           setVictories(victories + 1)
           setOpenResult(true)
           clearInterval(timerInterval)
@@ -195,6 +195,7 @@ const Home = ({ toggleTheme }: HomeProps) => {
       <S.Board
         size={size}
         centerContent
+        showsVerticalScrollIndicator={false}
         contentContainerStyle={{
           flexGrow: 1,
           flexDirection: 'row',
@@ -206,9 +207,9 @@ const Home = ({ toggleTheme }: HomeProps) => {
         }}
       >
         <S.ContainerMemoryCard >
-          {!!size && imagesCards.map((card, index) => (
+          {imagesCards.map((card, index) => (
             <MemoryCard
-              key={index}
+              key={card.character + index.toString()}
               character={card.character}
               selected={card.selected}
               visible={card.visible}
@@ -219,9 +220,9 @@ const Home = ({ toggleTheme }: HomeProps) => {
       </S.Board>
       <S.Footer>
         <Label color={colors.secondary} fontSize={18} text={'Tempo: ' + time}/>
-        <Label color={colors.secondary} fontSize={18} text={'Movimentos: ' + movements} />
-        <Label color={colors.secondary} fontSize={18} text={'Vitórias: ' + victories} />
-        <Label color={colors.secondary} fontSize={18} text={'Derrotas: ' + defeats} />
+        <Label color={colors.secondary} fontSize={18} text={'Movimentos: ' + movements.toString()} />
+        <Label color={colors.secondary} fontSize={18} text={'Vitórias: ' + victories.toString()} />
+        <Label color={colors.secondary} fontSize={18} text={'Derrotas: ' + defeats.toString()} />
       </S.Footer>
     </S.Container>
   )

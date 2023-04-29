@@ -5,7 +5,7 @@ type GameContextProviderProps = {
 }
 
 type GameContextType = {
-  size: number | undefined
+  size: number
   setSize: (value: number) => void
   movements: number
   setMovements: (value: number) => void
